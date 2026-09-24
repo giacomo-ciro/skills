@@ -1,44 +1,58 @@
-## Skill: `/extract-blueprint`
-
-**Role:** You are a Senior Technical Architect and Documentation Specialist.
-**Trigger:** `/extract-blueprint [feature_name]`
-
-### Execution Logic
-
-1.  **Exploration Phase:**
-    *   Search the codebase for the core logic associated with `[feature_name]`.
-    *   Identify the **Entry Point** (API route, UI component, or CLI command).
-    *   Trace the data flow through controllers, services, utilities, and database schemas.
-    *   List all external dependencies or third-party APIs involved.
-
-2.  **Analysis Phase:**
-    *   Determine the design patterns used (e.g., Factory, Singleton, Middleware).
-    *   Note specific configurations (environment variables, `tsconfig`, `package.json` flags).
-    *   Capture edge-case handling and validation logic.
-
-3.  **Generation Phase:**
-    Produce a standalone Markdown document titled **"Implementation Guide: [feature_name]"** and saved as `BLUEPRINT-feature-name.md` in the root of the current project directory.
-
+---
+name: extract-blueprint
+description: Reverse-engineer an existing feature from a codebase and write a standalone implementation blueprint covering its architecture, data flow, dependencies, configuration, and constraints. Use when a user wants to understand or reproduce implemented behavior; do not use to plan a feature that does not yet exist.
 ---
 
-### Output Template
-The agent must use the following structure for the generated document:
+# Extract Blueprint
 
-> # Implementation Blueprint: [Feature Name]
-> 
-> ## 1. Technical Stack & Requirements
-> * **Core Dependencies:** List specific libraries/versions found.
-> * **Environmental Prerequisites:** Required `.env` keys or config files.
->
-> ## 2. Architecture Map
-> * **Entry Point:** `path/to/file.ext`
-> * **Business Logic:** `path/to/service.ext`
-> * **Data Model:** Schema definitions or Interface types.
->
-> ## 3. Step-by-Step Reproduction
-> 1. **Setup:** (e.g., "Define the X interface in the types directory")
-> 2. **Core Logic:** (Provide code snippets or pseudocode for the heavy lifting)
-> 3. **Integration:** (How to hook the logic into the main application)
->
-> ## 4. Critical Logic Constraints
-> * Highlight specific "gotchas," security measures, or performance optimizations discovered in the source.
+Reverse-engineer the requested feature from the current codebase and document how it works well enough for another engineer to reproduce it.
+
+## Investigate
+
+1. Locate the feature through its names, user-facing labels, routes, commands, configuration, and tests.
+2. Identify every entry point, such as an API route, UI component, event handler, scheduled job, or CLI command.
+3. Trace the actual execution and data flow through callers, controllers, services, utilities, external integrations, persistence layers, and schemas.
+4. Inspect relevant tests, dependency manifests, configuration files, migrations, and interface definitions.
+
+## Analyze
+
+- Explain the architecture and design patterns that are actually present. Do not force the implementation into a named pattern.
+- Record direct dependencies and their declared versions, plus any external services or APIs.
+- List required environment-variable names and configuration files, but never include secret values.
+- Capture validation, authorization, error handling, edge cases, side effects, and material security or performance constraints.
+- Support claims with repository-relative file paths and symbol names. Clearly distinguish verified behavior from inference, and call out gaps that the codebase does not resolve.
+
+## Generate the Blueprint
+
+Create `BLUEPRINT-<feature-name>.md` in the project root unless the user specifies another destination. Use a concise kebab-case feature name in the filename and the following structure:
+
+```markdown
+# Implementation Blueprint: <Feature Name>
+
+## 1. Technical Stack and Requirements
+
+- **Core dependencies:** Libraries and declared versions used by the feature.
+- **Runtime prerequisites:** Required environment-variable names, services, and configuration files.
+
+## 2. Architecture Map
+
+- **Entry points:** Paths and symbols that initiate the feature.
+- **Business logic:** Paths and symbols that implement the behavior.
+- **Data model:** Schemas, migrations, interfaces, and persistence details.
+- **Data flow:** The end-to-end sequence, including external integrations and side effects.
+
+## 3. Step-by-Step Reproduction
+
+1. **Setup:** Types, dependencies, configuration, and data structures to establish.
+2. **Core logic:** Ordered implementation steps, with focused code snippets or pseudocode where they clarify non-obvious behavior.
+3. **Integration:** How to connect the feature to the host application and verify it using the discovered tests or observable behavior.
+
+## 4. Critical Logic and Constraints
+
+- Validation and edge cases.
+- Authorization and security requirements.
+- Error handling and recovery behavior.
+- Performance-sensitive decisions and other implementation traps.
+```
+
+Keep the document standalone and specific to the observed implementation. Omit irrelevant template bullets rather than filling them with speculation.
