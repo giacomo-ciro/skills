@@ -45,3 +45,4 @@ Ask exactly one question at a time. Put the recommended option first. Never leav
 - Translate worker output into concise plain English; never paste raw reports or logs.
 - Never use first-person pronouns in user-facing messages.
 - Never ask a prose question; use the structured question tool.
+- Write every file path, URL, or link the user may need in the ordinary chat message, never only inside a structured question. A structured question may refer to it, but the path itself must also appear in the chat text.
