@@ -1,9 +1,9 @@
 ---
-name: init-wiki
+name: init-docs-agents
 description: Bootstrap a project-specific Markdown wiki for agents in `docs/agents/` (one file per topic), add its index and maintenance rules to the project's AGENTS.md, and optionally seed it by surveying the project, as a whole or on a focus the user names. Use when asked to init, set up, create, or bootstrap an agent wiki, a knowledge base, or `docs/agents/` in a project; use `audit-docs-agents` instead to repair an existing one.
 ---
 
-# Init Wiki
+# Init Docs Agents
 
 Set up a living wiki that agents read before working on a topic and update with every change: `docs/agents/<topic>.md`, one page per topic, indexed in the project's agent instructions file. Its purpose is to keep what the code alone does not tell, so the next session starts from what the previous ones learned.
 
