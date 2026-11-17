@@ -76,3 +76,5 @@ Resolve discoverable facts from available evidence instead of asking the user. W
 When the user says the plan is sufficient, perform one final review against the available evidence. If a material concern, contradiction, unresolved decision, or logical gap remains, raise it one question at a time and continue updating the plan. If none remain, mark the plan `Ready` and report that it is ready for implementation.
 
 During planning, modify only the plan file; investigation of all other artifacts is read-only. Do not implement or change code, configuration, tests, documentation, or generated artifacts until the user explicitly authorizes implementation with language such as “proceed,” “approved,” or “implement.” Do not infer authorization from silence, praise, or a statement that the plan is merely sufficient.
+
+Once implementation is complete and verified, delete the plan file.
